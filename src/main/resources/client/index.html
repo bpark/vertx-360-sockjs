@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>SockJS Demo</title>
+    </head>
+</html>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
+    <h2>SockJS Test</h2>
+
+    <script type="application/javascript">
+
+        var endpointUrl = window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/endpoint";
+        var sock = new SockJS(endpointUrl, null, {transports: ['xhr-polling']});
+
+        sock.onopen = function () {
+            console.log('open');
+            sock.send("Hello World");
+        };
+
+        sock.onmessage = function (e) {
+            console.log('message', e.data);
+        };
+
+        sock.onclose = function () {
+            console.log('close');
+        };
+
+    </script>
+</body>
