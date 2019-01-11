@@ -19,7 +19,10 @@ public class SockJsVerticle extends AbstractVerticle {
         SockJSHandler sockJSHandler = SockJSHandler.create(vertx, options);
 
         sockJSHandler.socketHandler(sockJSSocket -> {
-            sockJSSocket.handler(buffer -> System.out.println(buffer.toString()));
+            sockJSSocket.handler(buffer -> {
+                System.out.println(buffer.toString());
+                sockJSSocket.write(buffer);
+            });
         });
 
         router.route("/endpoint/*").handler(sockJSHandler);
